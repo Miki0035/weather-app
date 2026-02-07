@@ -4,24 +4,37 @@
 
 @theme {
   /* COLOR */
-  --color-black-900: #02012c;
-  --color-black-800: #262540;
-  --color-black-700: #302f4a;
-  --color-black-600: #3c3b5e;
-  --color-black-300: #acacb7;
-  --color-black-200: #d4d3d9;
-  --color-white: #ffffff;
-  --color-orange-500: #ff820a;
-  --color-blue-500: #4658d9;
-  --color-blue-700: #2b1b9c;
+  --color-black-900: hsl(243, 96%, 9%);
+  --color-black-800: hsl(243, 27%, 20%);
+  --color-black-700: hsl(243, 23%, 24%);
+  --color-black-600: hsl(243, 23%, 30%);
+  --color-black-300: hsl(240, 6%, 70%);
+  --color-black-200: hsl(250, 6%, 84%);
+  --color-white: hsl(0, 0%, 100%);
+
+  --color-orange-500: hsl(28, 100%, 52%);
+
+  --color-blue-500: hsl(233, 67%, 56%);
+  --color-blue-700: hsl(248, 70%, 36%);
 
   /* FONTS */
   --font-sans: "DM Sans", sans-serif;
   --font-bricolage: "Bricolage Grotesque", sans-serif;
 }
 
+@font-face {
+  font-family: Bricolage;
+  url: ("./assets/fonts/BricolageGrotesque-VariableFont_opsz,wdth,wght.ttf")
+}
+
+@font-face {
+  font-family: DMSans;
+  url: ("./assets/fonts/DMSans-VariableFont_opsz,wght.ttf")
+}
+
 
 html,
 body {
   font-family: 'DMSans', sans-serif;
+  background-color: hsl(243, 96%, 9%);
 }
