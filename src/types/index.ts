@@ -1,5 +1,5 @@
-type UnitType = "metric" | "imperial"
-type Percipitation = "mm" | "in"
+export type UnitType = "metric" | "imperial"
+export type PrecipitationType = "mm" | "in"
 export type State = {
     unitType: UnitType,
     setUnitType: (value: UnitType) => void,
@@ -10,5 +10,5 @@ export type State = {
     windSpeed: string,
     setWindSpeed: (value: string) => void,
     percipitation: string,
-    setPercipitation: (value: Percipitation) => void,
+    setPercipitation: (value: PrecipitationType) => void,
 }
