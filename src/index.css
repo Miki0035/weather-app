@@ -1,5 +1,5 @@
-@import url("https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap");
+/* @import url("https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap"); */
+/* @import url("https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap"); */
 @import "tailwindcss";
 @import "tw-animate-css";
 
@@ -32,6 +32,10 @@
   /* FONTS */
   --font-sans: "DM Sans", sans-serif;
   --font-bricolage: "Bricolage Grotesque", sans-serif;
+
+  /* background image */
+  --bg-large: url("bg-today-large.svg");
+  --bg-small: url("bg-today-small.svg");
 }
 
 html,
