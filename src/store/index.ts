@@ -7,6 +7,11 @@ const useAppStore = create<State>((set) => ({
     setUnitType: (value: "metric" | "imperial") => set(({ unitType: value })),
     showDropdown: false,
     setShowDropdown: () => set((state) => ({ showDropdown: !state.showDropdown })),
+
+    showDays: false,
+    setShowDays: () => set((state) => ({ showDays: !state.showDays })),
+    day: 'Tuesday',
+    setDay: (value: string) => set(({ day: value })),
     temperature: "celsius",
     setTemperature: (value: string) => set(({ temperature: value })),
     windSpeed: "km/h",
