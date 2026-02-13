@@ -4,11 +4,11 @@ export function Searchbar() {
   return (
     <form
       role="search"
-      className="relative flex flex-col items-start sm:flex-row gap-5 sm:items-center"
+      className="w-full relative flex flex-col max-w-2xl sm:flex-row gap-2 sm:items-center"
     >
       <div
         className="w-full flex items-center gap-2 bg-black-800 hover:bg-black-700 cursor-pointer
-      rounded-lg py-3 pl-4 w-lg 
+      rounded-lg py-3 pl-4 
       "
       >
         <Search className="size-7 text-black-200" />

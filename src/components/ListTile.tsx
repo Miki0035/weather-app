@@ -6,9 +6,12 @@ interface Props {
 
 const ListTile = ({ icon, time, temperature }: Props) => {
   return (
-    <li className="bg-black-700 border border-black-600 rounded-lg flex justify-between items-center text-white px-5 py-3">
+    <li
+      className="w-full bg-black-700 border border-black-600 rounded-lg 
+    flex justify-between items-center text-white px-2 py-2"
+    >
       {/* icon and time */}
-      <div className="flex items-center justify-center gap-4">
+      <div className="flex items-center justify-center gap-2">
         <img src={icon} alt="cloudy" className="size-10" />
         <time className="text-lg">{time}</time>
       </div>
