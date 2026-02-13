@@ -4,14 +4,45 @@
 @import "tw-animate-css";
 
 
-@font-face {
+/* @font-face {
   font-family: Bricolage;
   url: ("./assets/fonts/BricolageGrotesque-VariableFont_opsz,wdth,wght.ttf")
 }
 
 @font-face {
   font-family: DMSans;
-  url: ("./assets/fonts/DMSans-VariableFont_opsz,wght.ttf")
+  url: ("./assets/fonts/DM_Sans/DMSans-VariableFont_opsz,wght.ttf");
+  font-weight: 100 900;
+} */
+@font-face {
+  font-family: "BricolageGrotesque";
+  src: url("./assets/fonts/Bricolage_Grotesque/static/BricolageGrotesque-Bold.ttf") format("truetype");
+  font-weight: 800;
+
+}
+
+@font-face {
+  font-family: "DMSans";
+  src: url("./assets/fonts/DM_Sans/static/DMSans-Bold.ttf") format("truetype");
+  font-weight: 800;
+}
+
+@font-face {
+  font-family: "DMSans";
+  src: url("./assets/fonts/DM_Sans/static/DMSans-SemiBold.ttf") format("truetype");
+  font-weight: 700;
+}
+
+@font-face {
+  font-family: "DMSans";
+  src: url("./assets/fonts/DM_Sans/static/DMSans-Medium.ttf") format("truetype");
+  font-weight: 600;
+}
+
+@font-face {
+  font-family: "DMSans";
+  src: url("./assets/fonts/DM_Sans/static/DMSans-Light.ttf") format("truetype");
+  font-weight: 300;
 }
 
 @theme {
@@ -30,8 +61,8 @@
   --color-blue-700: hsl(248, 70%, 36%);
 
   /* FONTS */
-  --font-sans: "DM Sans", sans-serif;
-  --font-bricolage: "Bricolage Grotesque", sans-serif;
+  --font-sans: "DMSans", sans-serif;
+  --font-bri: "BricolageGrotesque", sans-serif;
 
   /* background image */
   --bg-large: url("bg-today-large.svg");
@@ -40,6 +71,6 @@
 
 html,
 body {
-  font-family: 'Bricolage', 'DMSans', sans-serif;
+  font-family: var(--font-sans);
   background-color: hsl(243, 96%, 9%);
 }

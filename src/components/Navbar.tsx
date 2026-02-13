@@ -68,22 +68,26 @@ const Navbar = () => {
   };
 
   return (
-    <header className="p-5 flex justify-center">
-      <nav className="w-full flex max-w-7xl justify-between items-center p-7">
+    <header className="flex justify-center sm:px-5">
+      <nav className="w-full flex max-w-[1440px] justify-between items-center">
         <a href="/">
-          <img src={logo} alt="logo" className="object-cover" />
+          <img
+            src={logo}
+            alt="logo"
+            className="size-32 sm:size-42 object-contain"
+          />
         </a>
         <div className="rounded-lg bg-black-800 p-3 hover:cursor-pointer hover:bg-black-700">
           {/* settings button */}
           <div
             ref={dropdownRef}
-            className="flex gap-4 items-center text-sm relative"
+            className="font-sans flex gap-4 items-center text-sm relative"
             onClick={setShowDropdown}
           >
             <span>
               <img src={gearIcon} alt="gear" className="w-5 h-5 object-cover" />
             </span>
-            <span className="text-white font-Bricolage-bold"> Units </span>
+            <span className="text-white font-bri"> Units </span>
             <span>
               {showDropdown ? (
                 <ChevronUp className="text-white w-5 h-5" />
@@ -94,7 +98,7 @@ const Navbar = () => {
             {/* menu items */}
             <div
               className={cn(
-                `absolute top-10 -right-3 rounded-lg px-3 py-2 flex flex-col gap-3 transition-all w-64 bg-black-800`,
+                `absolute z-100 top-10 -right-3 rounded-lg px-3 py-2 flex flex-col gap-3 transition-all w-64 bg-black-800`,
                 showDropdown
                   ? "opacity-100 pointer-events-auto h-96"
                   : "opacity-0 pointer-events-none h-0",

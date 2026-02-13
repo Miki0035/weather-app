@@ -30,7 +30,7 @@ const HourlyForecastSection = () => {
   }, [setShowDays, showDays]);
 
   return (
-    <aside className="rounded-lg p-4 bg-black-800">
+    <aside className="w-full rounded-xl p-4 bg-black-800">
       {/* header */}
       <div className="w-full flex items-center justify-between">
         <h5 className="text-left text-lg font-semibold text-white">
@@ -51,7 +51,8 @@ const HourlyForecastSection = () => {
             {/* menu items */}
             <div
               className={cn(
-                `absolute top-10 -right-3 rounded-2xl px-3 py-2 flex flex-col gap-3 transition-all w-48 bg-black-800`,
+                `absolute top-10 -right-3 rounded-xl px-3 py-2 flex flex-col gap-3 transition-all w-48 bg-black-800 
+                border border-black-600`,
                 showDays
                   ? "opacity-100 pointer-events-auto h-88"
                   : "opacity-0 pointer-events-none h-0",
@@ -63,7 +64,12 @@ const HourlyForecastSection = () => {
                   e.stopPropagation();
                   setDay("Monday");
                 }}
-                className="text-md py-2 pl-3 text-white rounded-md text-left w-full hover:cursor-pointer hover:bg-black-600"
+                className={cn(
+                  `
+                text-md py-2 pl-3 text-white rounded-md text-left w-full hover:cursor-pointer
+                    `,
+                  day === "Monday" ? "bg-black-600" : "hover:bg-black-600",
+                )}
               />
               <NavbarButton
                 children={<p>Tuesday</p>}
@@ -71,7 +77,12 @@ const HourlyForecastSection = () => {
                   e.stopPropagation();
                   setDay("Tuesday");
                 }}
-                className="text-md py-2 pl-3 text-white rounded-md text-left w-full hover:cursor-pointer hover:bg-black-600"
+                className={cn(
+                  `
+                text-md py-2 pl-3 text-white rounded-md text-left w-full hover:cursor-pointer
+                    `,
+                  day === "Tuesday" ? "bg-black-600" : "hover:bg-black-600",
+                )}
               />
               <NavbarButton
                 children={<p>Wednesday</p>}
@@ -79,7 +90,12 @@ const HourlyForecastSection = () => {
                   e.stopPropagation();
                   setDay("Wednesday");
                 }}
-                className="text-md py-2 pl-3 text-white rounded-md text-left w-full hover:cursor-pointer hover:bg-black-600"
+                className={cn(
+                  `
+                text-md py-2 pl-3 text-white rounded-md text-left w-full hover:cursor-pointer
+                    `,
+                  day === "Wednesday" ? "bg-black-600" : "hover:bg-black-600",
+                )}
               />
               <NavbarButton
                 children={<p>Thursday</p>}
@@ -87,7 +103,12 @@ const HourlyForecastSection = () => {
                   e.stopPropagation();
                   setDay("Thursday");
                 }}
-                className="text-md py-2 pl-3 text-white rounded-md text-left w-full hover:cursor-pointer hover:bg-black-600"
+                className={cn(
+                  `
+                text-md py-2 pl-3 text-white rounded-md text-left w-full hover:cursor-pointer
+                    `,
+                  day === "Thursday" ? "bg-black-600" : "hover:bg-black-600",
+                )}
               />
               <NavbarButton
                 children={<p>Friday</p>}
@@ -95,7 +116,12 @@ const HourlyForecastSection = () => {
                   e.stopPropagation();
                   setDay("Friday");
                 }}
-                className="text-md py-2 pl-3 text-white rounded-md text-left w-full hover:cursor-pointer hover:bg-black-600"
+                className={cn(
+                  `
+                text-md py-2 pl-3 text-white rounded-md text-left w-full hover:cursor-pointer
+                    `,
+                  day === "Friday" ? "bg-black-600" : "hover:bg-black-600",
+                )}
               />
               <NavbarButton
                 children={<p>Saturday</p>}
@@ -103,7 +129,12 @@ const HourlyForecastSection = () => {
                   e.stopPropagation();
                   setDay("Saturday");
                 }}
-                className="text-md py-2 pl-3 text-white rounded-md text-left w-full hover:cursor-pointer hover:bg-black-600"
+                className={cn(
+                  `
+                text-md py-2 pl-3 text-white rounded-md text-left w-full hover:cursor-pointer
+                    `,
+                  day === "Saturday" ? "bg-black-600" : "hover:bg-black-600",
+                )}
               />
               <NavbarButton
                 children={<p>Sunday</p>}
@@ -111,7 +142,12 @@ const HourlyForecastSection = () => {
                   e.stopPropagation();
                   setDay("Sunday");
                 }}
-                className="text-md py-2 pl-3 text-white rounded-md text-left w-full hover:cursor-pointer hover:bg-black-600"
+                className={cn(
+                  `
+                text-md py-2 pl-3 text-white rounded-md text-left w-full hover:cursor-pointer
+                    `,
+                  day === "Sunday" ? "bg-black-600" : "hover:bg-black-600",
+                )}
               />
             </div>
           </menu>
@@ -119,7 +155,7 @@ const HourlyForecastSection = () => {
       </div>
 
       {/* list tile */}
-      <ul className="px-2 py-5 space-y-5">
+      <ul className="pt-5 space-y-5">
         <ListTile icon={cloudy} time="4 PM" temperature="20°" />
         <ListTile icon={cloudy} time="4 PM" temperature="20°" />
         <ListTile icon={cloudy} time="4 PM" temperature="20°" />
