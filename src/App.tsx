@@ -5,7 +5,14 @@ import Chips from "./components/Chips";
 import ForcastCard from "./components/ForcastCard";
 import HourlyForecastSection from "./components/HourlyForecastSection";
 import ImageCard from "./components/ImageCard";
+import { useEffect } from "react";
+import useAppStore from "./store";
 const App = () => {
+  const { fetchCountryName, fetchCityName } = useAppStore();
+
+  useEffect(() => {
+    Promise.all([fetchCountryName(), fetchCityName()]);
+  }, []);
   return (
     <>
       <Navbar />
@@ -22,12 +29,7 @@ const App = () => {
             {/* upper grid */}
             <aside className="space-y-8 md:flex md:flex-col md:justify-between md:col-span-2">
               {/* image Card */}
-              <ImageCard
-                countryName="Germany"
-                cityName="Berlin"
-                date="Tuesday, Aug 5 ,2025"
-                temperature="68°"
-              />
+              <ImageCard />
               {/* smaller card grid */}
               <div className="w-full grid grid-cols-2 sm:grid-cols-4 gap-3">
                 {/* smaller card */}

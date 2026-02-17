@@ -1,12 +1,11 @@
 import sunny from "../assets/images/icon-sunny.webp";
+import { formatTemperature } from "../lib/utils";
+import useAppStore from "../store";
 
-interface Props {
-  cityName: string;
-  countryName: string;
-  date: string;
-  temperature: string;
-}
-const ImageCard = ({ cityName, countryName, date, temperature }: Props) => {
+const ImageCard = () => {
+  const { countryName, cityName, day, weather, temperatureUnit } =
+    useAppStore();
+
   return (
     <div
       className={`w-full h-65 rounded-4xl bg-(image:--bg-small)
@@ -21,13 +20,14 @@ const ImageCard = ({ cityName, countryName, date, temperature }: Props) => {
         <h5 className="text-2xl text-white font-semibold">
           {cityName} , {countryName}
         </h5>
-        <h4 className="text-md text-black-200">{date}</h4>
+        <h4 className="text-md text-black-200">{day}</h4>
       </div>
       {/* temperature */}
       <div className="flex items-center gap-5 md:gap-2">
         <img src={sunny} alt="sun" className="size-24 md:size-32" />
         <p className="font-semibold font-semibold text-6xl sm:text-8xl italic text-white">
-          {temperature}
+          {formatTemperature(weather?.current?.temperature)}
+          {temperatureUnit === "celsius" ? "°C" : "°F"}
         </p>
       </div>
     </div>

@@ -7,7 +7,7 @@ import useAppStore from "../store";
 import { cn } from "../lib/utils";
 import { ChevronUp } from "lucide-react";
 import { useEffect, useRef } from "react";
-import type { PrecipitationType, UnitType } from "../types";
+import type { UnitType } from "../types";
 import NavbarButton from "./NavbarButton";
 
 const Navbar = () => {
@@ -16,12 +16,9 @@ const Navbar = () => {
     setShowDropdown,
     unitType,
     setUnitType,
-    setTemperature,
-    temperature,
-    setWindSpeed,
-    windSpeed,
-    setPercipitation,
-    percipitation,
+    temperatureUnit: temperature,
+    windSpeedUnit: windSpeed,
+    percipitationUnit: percipitation,
   } = useAppStore();
 
   const dropdownRef = useRef<HTMLDivElement | null>(null);
@@ -45,26 +42,10 @@ const Navbar = () => {
 
   const handleSelect = (
     e: React.MouseEvent<HTMLButtonElement>,
-    changeState: string,
     value: string,
   ) => {
     e.stopPropagation();
-    switch (changeState) {
-      case "unit":
-        setUnitType(value as UnitType);
-        break;
-      case "temperature":
-        setTemperature(value);
-        break;
-
-      case "windspeed":
-        setWindSpeed(value);
-        break;
-
-      case "precipitation":
-        setPercipitation(value as PrecipitationType);
-        break;
-    }
+    setUnitType(value as UnitType);
   };
 
   return (
@@ -100,18 +81,14 @@ const Navbar = () => {
               className={cn(
                 `absolute z-100 top-10 -right-3 rounded-lg px-3 py-2 flex flex-col gap-3 transition-all w-64 bg-black-800`,
                 showDropdown
-                  ? "opacity-100 pointer-events-auto h-96"
-                  : "opacity-0 pointer-events-none h-0",
+                  ? "opacity-100  h-96"
+                  : "opacity-0  h-0 pointer-events-none",
               )}
             >
               {/* Unit type button */}
               <NavbarButton
                 onClick={(e: React.MouseEvent<HTMLButtonElement>) =>
-                  handleSelect(
-                    e,
-                    "unit",
-                    unitType == "metric" ? "imperial" : "metric",
-                  )
+                  handleSelect(e, unitType == "metric" ? "imperial" : "metric")
                 }
                 className="text-md py-2 pl-3 text-white rounded-md text-left w-full hover:cursor-pointer hover:bg-black-600"
                 children={
@@ -120,18 +97,13 @@ const Navbar = () => {
               />
 
               {/* Temperature button */}
-              <div className="pb-2 border-b-1 border-black-600">
+              <div className="pb-2 border-b-1 border-black-600 cursor-default">
                 <p className="text-black-300 pl-3">Temperature</p>
                 {/* Celsius Button */}
-                <NavbarButton
-                  onClick={(e: React.MouseEvent<HTMLButtonElement>) =>
-                    handleSelect(e, "temperature", "celsius")
-                  }
+                <div
                   className={cn(
                     "text-md text-white flex justify-between items-center  py-2 px-3 rounded-md text-left w-full hover:cursor-pointer",
-                    temperature === "celsius"
-                      ? "bg-black-700"
-                      : "hover:bg-black-600",
+                    temperature === "celsius" && "bg-black-700",
                   )}
                   children={
                     <>
@@ -144,15 +116,10 @@ const Navbar = () => {
                 />
 
                 {/* Fahrenheit Button */}
-                <NavbarButton
-                  onClick={(e: React.MouseEvent<HTMLButtonElement>) =>
-                    handleSelect(e, "temperature", "fahrenheit")
-                  }
+                <div
                   className={cn(
-                    "text-md text-white flex justify-between items-center  py-2  px-3 rounded-md text-left w-full hover:cursor-pointer",
-                    temperature === "fahrenheit"
-                      ? "bg-black-700"
-                      : "hover:bg-black-600",
+                    "text-md text-white flex justify-between items-center  py-2  px-3 rounded-md text-left w-full ",
+                    temperature === "fahrenheit" && "bg-black-700",
                   )}
                   children={
                     <>
@@ -169,33 +136,25 @@ const Navbar = () => {
               <div className="pb-2 border-b-1 border-black-600">
                 <p className="text-black-300 pl-3">Wind Speed</p>
                 {/* KM/H Button */}
-                <NavbarButton
-                  onClick={(e: React.MouseEvent<HTMLButtonElement>) =>
-                    handleSelect(e, "windspeed", "km/h")
-                  }
+                <div
                   className={cn(
-                    "text-md text-white flex justify-between items-center  py-2 px-3 rounded-md text-left w-full hover:cursor-pointer",
-                    windSpeed === "km/h"
-                      ? "bg-black-700"
-                      : "hover:bg-black-600",
+                    "text-md text-white flex justify-between items-center  py-2 px-3 rounded-md text-left w-full ",
+                    windSpeed === "kmh" && "bg-black-700",
                   )}
                   children={
                     <>
                       km/h{" "}
-                      {windSpeed === "km/h" && (
+                      {windSpeed === "kmh" && (
                         <img src={checkmark} className="object-cover" />
                       )}
                     </>
                   }
                 />
                 {/* MPH Button */}
-                <NavbarButton
-                  onClick={(e: React.MouseEvent<HTMLButtonElement>) =>
-                    handleSelect(e, "windspeed", "mph")
-                  }
+                <div
                   className={cn(
-                    "text-md text-white flex justify-between items-center  py-2  px-3 rounded-md text-left w-full hover:cursor-pointer",
-                    windSpeed === "mph" ? "bg-black-700" : "hover:bg-black-600",
+                    "text-md text-white flex justify-between items-center  py-2  px-3 rounded-md text-left w-full ",
+                    windSpeed === "mph" && "bg-black-700",
                   )}
                   children={
                     <>
@@ -212,15 +171,10 @@ const Navbar = () => {
               <div className="pb-2 border-b-1 border-black-600">
                 <p className="text-black-300 pl-3">Precipitation</p>
                 {/* mm Button */}
-                <NavbarButton
-                  onClick={(e: React.MouseEvent<HTMLButtonElement>) =>
-                    handleSelect(e, "precipitation", "mm")
-                  }
+                <div
                   className={cn(
-                    "text-md text-white flex justify-between items-center  py-2 px-3 rounded-md text-left w-full hover:cursor-pointer",
-                    percipitation === "mm"
-                      ? "bg-black-700"
-                      : "hover:bg-black-600",
+                    "text-md text-white flex justify-between items-center  py-2 px-3 rounded-md text-left w-full ",
+                    percipitation === "mm" && "bg-black-700",
                   )}
                   children={
                     <>
@@ -232,20 +186,15 @@ const Navbar = () => {
                   }
                 />
                 {/* In Button */}
-                <NavbarButton
-                  onClick={(e: React.MouseEvent<HTMLButtonElement>) =>
-                    handleSelect(e, "precipitation", "in")
-                  }
+                <div
                   className={cn(
-                    "text-md text-white flex justify-between items-center  py-2  px-3 rounded-md text-left w-full hover:cursor-pointer",
-                    percipitation === "in"
-                      ? "bg-black-700"
-                      : "hover:bg-black-600",
+                    "text-md text-white flex justify-between items-center  py-2  px-3 rounded-md text-left w-full ",
+                    percipitation === "inch" && "bg-black-700",
                   )}
                   children={
                     <>
                       Inches (in)
-                      {percipitation === "in" && (
+                      {percipitation === "inch" && (
                         <img src={checkmark} className="object-cover" />
                       )}
                     </>

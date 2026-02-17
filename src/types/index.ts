@@ -9,10 +9,50 @@ export type State = {
     setShowDays: () => void,
     day: string,
     setDay: (value: string) => void,
-    temperature: string,
+    temperatureUnit: string,
     setTemperature: (value: string) => void,
-    windSpeed: string,
+    windSpeedUnit: string,
     setWindSpeed: (value: string) => void,
-    percipitation: string,
+    percipitationUnit: string,
     setPercipitation: (value: PrecipitationType) => void,
+    countryName: string,
+    cityName: string,
+    fetchCountryName: () => Promise<void>,
+    fetchCityName: () => Promise<void>
+    isLoading: boolean,
+    weather: WeatherData | null
+}
+
+export interface WeatherData {
+    current: {
+        percipitation: number;
+        temperature: number;
+        time: Date,
+        windSpeed: number;
+    },
+    daily: {
+        // each day of the week
+        time: Date[];
+        weatherCode: Float32Array<ArrayBufferLike>;
+        // max temp for each day of the week (0 - 6)
+        temperatureMax: Float32Array<ArrayBufferLike>;
+        // min temp for each day of the week (0 - 6)
+        temperatureMin: Float32Array<ArrayBufferLike>;
+    };
+    // hourly: {
+
+    // }
+}
+
+
+export interface IP {
+    location: {
+        country: string,
+        region: string,
+    }
+}
+
+export type LocationType = {
+    countryName: string;
+    cityName: string
 }
