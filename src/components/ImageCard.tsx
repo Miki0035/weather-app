@@ -1,10 +1,29 @@
-import sunny from "../assets/images/icon-sunny.webp";
-import { formatTemperature } from "../lib/utils";
+import {
+  convertDayToString,
+  convertMonthToString,
+  formatValue,
+  validateWeatherIcon,
+} from "../lib/utils";
 import useAppStore from "../store";
 
 const ImageCard = () => {
-  const { countryName, cityName, day, weather, temperatureUnit } =
-    useAppStore();
+  const { countryName, cityName, weather, temperatureUnit } = useAppStore();
+
+  console.log(`wheater time ${weather?.current}`);
+
+  // formates date to display
+  const formatedDate = () => {
+    const now = new Date();
+    const day = convertDayToString(
+      weather?.current.time.getDay() ?? now.getDay(),
+    );
+    const month = convertMonthToString(
+      weather?.current.time.getMonth() ?? now.getMonth(),
+    );
+    const date = weather?.current.time.getDate() ?? now.getDate();
+    const year = weather?.current.time.getFullYear() ?? now.getFullYear();
+    return `${day}, ${month} ${date}, ${year} `;
+  };
 
   return (
     <div
@@ -20,13 +39,17 @@ const ImageCard = () => {
         <h5 className="text-2xl text-white font-semibold">
           {cityName} , {countryName}
         </h5>
-        <h4 className="text-md text-black-200">{day}</h4>
+        <h4 className="text-md text-black-200">{formatedDate() ?? " "}</h4>
       </div>
       {/* temperature */}
       <div className="flex items-center gap-5 md:gap-2">
-        <img src={sunny} alt="sun" className="size-24 md:size-32" />
+        <img
+          src={validateWeatherIcon(weather?.current.weatherCode ?? 4)}
+          alt="sun"
+          className="size-24 md:size-32"
+        />
         <p className="font-semibold font-semibold text-6xl sm:text-8xl italic text-white">
-          {formatTemperature(weather?.current?.temperature)}
+          {formatValue(weather?.current?.temperature)}
           {temperatureUnit === "celsius" ? "°C" : "°F"}
         </p>
       </div>

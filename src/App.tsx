@@ -1,18 +1,20 @@
 import Navbar from "./components/Navbar";
 import { Searchbar } from "./components/Searchbar";
-import rainyCloud from "./assets/images/icon-rain.webp";
 import Chips from "./components/Chips";
 import ForcastCard from "./components/ForcastCard";
 import HourlyForecastSection from "./components/HourlyForecastSection";
 import ImageCard from "./components/ImageCard";
 import { useEffect } from "react";
+import { getWeather } from "./lib/api";
 import useAppStore from "./store";
+import { formatValue, validateWeatherIcon } from "./lib/utils";
 const App = () => {
-  const { fetchCountryName, fetchCityName } = useAppStore();
+  const { weather, unitType } = useAppStore();
 
   useEffect(() => {
-    Promise.all([fetchCountryName(), fetchCityName()]);
+    getWeather("");
   }, []);
+
   return (
     <>
       <Navbar />
@@ -33,10 +35,26 @@ const App = () => {
               {/* smaller card grid */}
               <div className="w-full grid grid-cols-2 sm:grid-cols-4 gap-3">
                 {/* smaller card */}
-                <Chips label="Feels like" value="68°" />
-                <Chips label="Feels like" value="68°" />
-                <Chips label="Feels like" value="68°" />
-                <Chips label="Feels like" value="68°" />
+                <Chips
+                  label="Feels like"
+                  value={`${formatValue(weather?.current?.apparentTemperature)}`}
+                  measurement="°"
+                />
+                <Chips
+                  label="Humidity"
+                  value={`${formatValue(weather?.current?.relativeHumidity)}`}
+                  measurement="%"
+                />
+                <Chips
+                  label="Wind"
+                  value={`${formatValue(weather?.current?.windSpeed)}`}
+                  measurement={unitType === "metric" ? "km/h" : "mph"}
+                />
+                <Chips
+                  label="Percipitation"
+                  value={`${weather?.current.percipitation}`}
+                  measurement={unitType === "metric" ? "mm" : "in"}
+                />
               </div>
               {/* Lower part */}
               <div className="mt-8">
@@ -46,43 +64,57 @@ const App = () => {
                 <div className="w-full flex  gap-4 flex-wrap justify-start">
                   {/* forecast card */}
                   <ForcastCard
-                    icon={rainyCloud}
+                    icon={validateWeatherIcon(
+                      weather?.current.weatherCode ?? 0,
+                    )}
                     day="Tue"
                     highestTemp="20°"
                     lowestTemp=" 14°"
                   />
                   <ForcastCard
-                    icon={rainyCloud}
+                    icon={validateWeatherIcon(
+                      weather?.current.weatherCode ?? 0,
+                    )}
                     day="Tue"
                     highestTemp="20°"
                     lowestTemp=" 14°"
                   />
                   <ForcastCard
-                    icon={rainyCloud}
+                    icon={validateWeatherIcon(
+                      weather?.current.weatherCode ?? 0,
+                    )}
                     day="Tue"
                     highestTemp="20°"
                     lowestTemp=" 14°"
                   />
                   <ForcastCard
-                    icon={rainyCloud}
+                    icon={validateWeatherIcon(
+                      weather?.current.weatherCode ?? 0,
+                    )}
                     day="Tue"
                     highestTemp="20°"
                     lowestTemp=" 14°"
                   />
                   <ForcastCard
-                    icon={rainyCloud}
+                    icon={validateWeatherIcon(
+                      weather?.current.weatherCode ?? 0,
+                    )}
                     day="Tue"
                     highestTemp="20°"
                     lowestTemp=" 14°"
                   />
                   <ForcastCard
-                    icon={rainyCloud}
+                    icon={validateWeatherIcon(
+                      weather?.current.weatherCode ?? 0,
+                    )}
                     day="Tue"
                     highestTemp="20°"
                     lowestTemp=" 14°"
                   />
                   <ForcastCard
-                    icon={rainyCloud}
+                    icon={validateWeatherIcon(
+                      weather?.current.weatherCode ?? 0,
+                    )}
                     day="Tue"
                     highestTemp="20°"
                     lowestTemp=" 14°"

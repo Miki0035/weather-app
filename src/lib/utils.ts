@@ -35,7 +35,45 @@ export function convertDayToString(day: number): string {
     case 6:
       return "Saturday"
     default:
-      return "Tuesday"
+      return ""
+  }
+}
+
+// gets day index value 0 - 6 
+// returns string value of the day
+export function convertMonthToString(month: number): string {
+  switch (month) {
+    case 0:
+      return "Jan"
+
+    case 1:
+      return "Feb"
+
+    case 2:
+      return "Mar"
+
+    case 3:
+      return "Apr"
+
+    case 4:
+      return "May"
+
+    case 5:
+      return "June"
+    case 6:
+      return "July"
+    case 7:
+      return "Aug"
+    case 8:
+      return "Sept"
+    case 9:
+      return "Oct"
+    case 10:
+      return "Nov"
+    case 11:
+      return "Dec"
+    default:
+      return ""
   }
 }
 
@@ -59,7 +97,37 @@ export async function getUserCountry(): Promise<LocationType> {
   }
 }
 
-// format temperature value
-export function formatTemperature(temperature: number | undefined) {
-  return Math.trunc(temperature ?? 0)
+// format any weather number value
+export function formatValue(value: number | undefined) {
+  return Math.trunc(value ?? 0)
 }
+
+
+// validate if sunny , snow, partly cloudy, 
+// rain, storm, fog, overcast , drizzle
+// based on provided weather code
+
+export function validateWeatherIcon(weatherCode: number) {
+  if (weatherCode === 0) {
+    return "/icon-sunny.webp";
+  }
+
+  if (weatherCode <= 3) {
+    return "/icon-partly-cloudy.webp"
+  }
+  if (weatherCode <= 48) {
+    return "/icon-fog.webp"
+  }
+  if (weatherCode <= 57) {
+    return "/icon-drizzle.webp"
+  }
+  if (weatherCode <= 67) {
+    return "/icon-rain.webp"
+  }
+  if (weatherCode <= 86) {
+    return "/icon-snow.webp"
+  }
+  return "/icon-storm.webp"
+}
+
+

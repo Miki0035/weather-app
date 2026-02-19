@@ -4,7 +4,7 @@ import { cn } from "../lib/utils";
 import useAppStore from "../store";
 import NavbarButton from "./NavbarButton";
 
-import cloudy from "../assets/images/icon-partly-cloudy.webp";
+import cloudy from "/icon-partly-cloudy.webp";
 import ListTile from "./ListTile";
 
 const HourlyForecastSection = () => {

@@ -29,6 +29,9 @@ export interface WeatherData {
         temperature: number;
         time: Date,
         windSpeed: number;
+        apparentTemperature: number;
+        relativeHumidity: number;
+        weatherCode: number;
     },
     daily: {
         // each day of the week
