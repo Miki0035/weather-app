@@ -7,8 +7,8 @@ export type State = {
     setShowDropdown: () => void,
     showDays: boolean,
     setShowDays: () => void,
-    day: string,
-    setDay: (value: string) => void,
+    day: Date,
+    setDay: (value: Date) => void,
     temperatureUnit: string,
     setTemperature: (value: string) => void,
     windSpeedUnit: string,
@@ -20,7 +20,10 @@ export type State = {
     fetchCountryName: () => Promise<void>,
     fetchCityName: () => Promise<void>
     isLoading: boolean,
-    weather: WeatherData | null
+    weather: WeatherData | null,
+    latitude: number | null,
+    longitude: number | null,
+    updateHourly: (value: HourlyWeatherData) => void;
 }
 
 export interface WeatherData {
@@ -36,15 +39,21 @@ export interface WeatherData {
     daily: {
         // each day of the week
         time: Date[];
+        // weather code for each day of the week (0 - 6)
         weatherCode: Float32Array<ArrayBufferLike>;
         // max temp for each day of the week (0 - 6)
         temperatureMax: Float32Array<ArrayBufferLike>;
         // min temp for each day of the week (0 - 6)
         temperatureMin: Float32Array<ArrayBufferLike>;
     };
-    // hourly: {
-
-    // }
+    hourly: {
+        // each hour of the day (0 - 23)
+        time: Date[];
+        // weather code for each hour of the day
+        weatherCode: Float32Array<ArrayBufferLike>;
+        // apperent temperature for each hour of the day
+        apparentTemperature: Float32Array<ArrayBufferLike>;
+    }
 }
 
 
@@ -58,4 +67,12 @@ export interface IP {
 export type LocationType = {
     countryName: string;
     cityName: string
+}
+
+interface HourlyWeatherData {
+    time: Date[];
+    // weather code for each hour of the day
+    weatherCode: Float32Array<ArrayBufferLike>;
+    // apperent temperature for each hour of the day
+    apparentTemperature: Float32Array<ArrayBufferLike>;
 }

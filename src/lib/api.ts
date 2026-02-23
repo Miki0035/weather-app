@@ -1,7 +1,7 @@
 import { fetchWeatherApi } from "openmeteo";
 import useAppStore from "../store";
 
-const { temperatureUnit: temperature, windSpeedUnit: windSpeed, percipitationUnit: percipitation } = useAppStore.getState()
+const { temperatureUnit: temperature, windSpeedUnit: windSpeed, percipitationUnit: percipitation, day, latitude: stateLatitude, longitude: stateLongitude, updateHourly, setDay } = useAppStore.getState()
 const WEATHER_ENDPOINT_URL = `https://api.open-meteo.com/v1/forecast`;
 const LOCATION_ENDPOINT_URL = "https://geocoding-api.open-meteo.com/v1/search"
 
@@ -14,15 +14,24 @@ export const getWeather = async (searchTerm: string) => {
         current: "weather_code,temperature_2m,apparent_temperature,relative_humidity_2m,wind_speed_10m,precipitation",
         daily: 'weather_code,temperature_2m_max,temperature_2m_min',
         hourly: 'weather_code,apparent_temperature',
+        timezone: "auto",
         "temperature_unit": temperature,
         "precipitation_unit": percipitation,
         "wind_speed_unit": windSpeed
+    }
 
+    const HOURLY_WEATHER_QUERY = {
+        hourly: 'weather_code,apparent_temperature',
+        start_date: day.toISOString().split('T')[0],
+        end_date: day.toISOString().split('T')[0],
+        timezone: "auto",
+        "temperature_unit": temperature,
+        "precipitation_unit": percipitation,
+        "wind_speed_unit": windSpeed
     }
 
     try {
         if (searchTerm === "") {
-
             // Get coordianates of the search country
             const coordinateResponse = await fetch(`${LOCATION_ENDPOINT_URL}?name=berlin`)
             const coordinates = await coordinateResponse.json();
@@ -32,9 +41,9 @@ export const getWeather = async (searchTerm: string) => {
             const { latitude, longitude, country, name } = coordinates.results[0]
 
             // update the countryName and cityName state
-            useAppStore.setState({ countryName: country, cityName: name })
+            useAppStore.setState({ countryName: country, cityName: name, latitude, longitude })
 
-            // get weather data of the country
+            // get current and daily weather data of the country
             const params = {
                 latitude: [latitude],
                 longitude: [longitude],
@@ -45,8 +54,22 @@ export const getWeather = async (searchTerm: string) => {
 
             const utcOffsetSeconds = response.utcOffsetSeconds();
             const current = response.current()!;
-            // const hourly = response.hourly()!;
             const daily = response.daily()!;
+
+
+            // get hourly weather data of the country
+            const hourlyParams = {
+                latitude: [latitude],
+                longitude: [longitude],
+                ...HOURLY_WEATHER_QUERY
+            }
+            const hourlyResponses = await fetchWeatherApi(WEATHER_ENDPOINT_URL, hourlyParams);
+            const hourlyResponse = hourlyResponses[0];
+
+            // const utcOffsetSeconds = hourlyResponse.utcOffsetSeconds();
+            // const current = response.current()!;
+            const hourly = hourlyResponse.hourly()!;
+            // const daily = response.daily()!;
 
 
             const weatherData = {
@@ -67,13 +90,13 @@ export const getWeather = async (searchTerm: string) => {
                     temperatureMax: daily.variables(1)!.valuesArray()!,
                     temperatureMin: daily.variables(2)!.valuesArray()!,
                 },
-                // hourly: {
-                //     time: range(Number(hourly.time()), Number(hourly.timeEnd()), hourly.interval()).map(
-                //         (t) => new Date((t + utcOffsetSeconds) * 1000)
-                //     ),
-                //     weatherCode: daily.variables(0)!.valuesArray()!,
-                //     apparentTemperature: hourly.variables(1)!.valuesArray()!, // `.valuesArray()` get an array of floats
-                // },
+                hourly: {
+                    time: range(Number(hourly.time()), Number(hourly.timeEnd()), hourly.interval()).map(
+                        (t) => new Date((t + utcOffsetSeconds) * 1000)
+                    ),
+                    weatherCode: hourly.variables(0)!.valuesArray()!,
+                    apparentTemperature: hourly.variables(1)!.valuesArray()!, // `.valuesArray()` get an array of floats
+                },
 
             };
             useAppStore.setState({ weather: weatherData })
@@ -91,7 +114,9 @@ export const getWeather = async (searchTerm: string) => {
         const { latitude, longitude, country, name } = coordinates.results[0]
 
         // update the countryName and cityName state
-        useAppStore.setState({ countryName: country, cityName: name })
+        useAppStore.setState({ countryName: country, cityName: name, latitude, longitude })
+
+
 
         // get weather data of the country
         const params = {
@@ -104,8 +129,22 @@ export const getWeather = async (searchTerm: string) => {
 
         const utcOffsetSeconds = response.utcOffsetSeconds();
         const current = response.current()!;
-        // const hourly = response.hourly()!;
         const daily = response.daily()!;
+
+
+        // get hourly weather data of the country
+        const hourlyParams = {
+            latitude: [latitude],
+            longitude: [longitude],
+            ...HOURLY_WEATHER_QUERY
+        }
+        const hourlyResponses = await fetchWeatherApi(WEATHER_ENDPOINT_URL, hourlyParams);
+        const hourlyResponse = hourlyResponses[0];
+
+        // const utcOffsetSeconds = hourlyResponse.utcOffsetSeconds();
+        // const current = response.current()!;
+        const hourly = hourlyResponse.hourly()!;
+        // const daily = response.daily()!;
 
 
         const weatherData = {
@@ -126,19 +165,71 @@ export const getWeather = async (searchTerm: string) => {
                 temperatureMax: daily.variables(1)!.valuesArray()!,
                 temperatureMin: daily.variables(2)!.valuesArray()!,
             },
-            // hourly: {
-            //     time: range(Number(hourly.time()), Number(hourly.timeEnd()), hourly.interval()).map(
-            //         (t) => new Date((t + utcOffsetSeconds) * 1000)
-            //     ),
-            //     weatherCode: daily.variables(0)!.valuesArray()!,
-            //     apparentTemperature: hourly.variables(1)!.valuesArray()!, // `.valuesArray()` get an array of floats
-            // },
+            hourly: {
+                time: range(Number(hourly.time()), Number(hourly.timeEnd()), hourly.interval()).map(
+                    (t) => new Date((t + utcOffsetSeconds) * 1000)
+                ),
+                weatherCode: hourly.variables(0)!.valuesArray()!,
+                apparentTemperature: hourly.variables(1)!.valuesArray()!, // `.valuesArray()` get an array of floats
+            },
 
         };
-
         useAppStore.setState({ weather: weatherData })
         console.log(`There is search term weatherData:`, weatherData)
         return weatherData;
+
+    } catch (error) {
+        console.log('error getting weather', error);
+        return null;
+    }
+}
+
+
+export const getHourlyWeather = async (date: Date) => {
+    const HOURLY_WEATHER_QUERY = {
+        hourly: 'weather_code,apparent_temperature',
+        start_date: date.toISOString().split('T')[0],
+        end_date: date.toISOString().split('T')[0],
+        timezone: "auto",
+        "temperature_unit": temperature,
+        "precipitation_unit": percipitation,
+        "wind_speed_unit": windSpeed
+    }
+
+    console.log(`the date is  `, date.getDay())
+
+    try {
+
+        // get hourly weather data of the country
+        const hourlyParams = {
+            latitude: [stateLatitude],
+            longitude: [stateLongitude],
+            ...HOURLY_WEATHER_QUERY
+        }
+        const hourlyResponses = await fetchWeatherApi(WEATHER_ENDPOINT_URL, hourlyParams);
+        const hourlyResponse = hourlyResponses[0];
+
+        const utcOffsetSeconds = hourlyResponse.utcOffsetSeconds();
+        const hourly = hourlyResponse.hourly()!;
+
+
+        const weatherData = {
+            hourly: {
+                time: range(Number(hourly.time()), Number(hourly.timeEnd()), hourly.interval()).map(
+                    (t) => new Date((t + utcOffsetSeconds) * 1000)
+                ),
+                weatherCode: hourly.variables(0)!.valuesArray()!,
+                apparentTemperature: hourly.variables(1)!.valuesArray()!, // `.valuesArray()` get an array of floats
+            },
+
+        };
+        // update hourly data
+        updateHourly(weatherData.hourly)
+        // update selected date
+        setDay(date)
+        console.log(`There is new hourly data weatherData:`, weatherData)
+        return weatherData;
+
     } catch (error) {
         console.log('error getting weather', error);
         return null;

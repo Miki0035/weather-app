@@ -1,7 +1,6 @@
 import { create } from 'zustand'
 import type { State } from '../types'
-import { convertDayToString, getUserCountry } from '../lib/utils'
-
+import { getUserCountry } from '../lib/utils'
 
 const useAppStore = create<State>((set) => ({
     isLoading: false,
@@ -27,8 +26,8 @@ const useAppStore = create<State>((set) => ({
     setShowDropdown: () => set((state) => ({ showDropdown: !state.showDropdown })),
     showDays: false,
     setShowDays: () => set((state) => ({ showDays: !state.showDays })),
-    day: convertDayToString(new Date().getDay()),
-    setDay: (value: string) => set(({ day: value })),
+    day: new Date(),
+    setDay: (value: Date) => set(({ day: value })),
     temperatureUnit: "celsius",
     setTemperature: (value: string) => set(({ temperatureUnit: value })),
     windSpeedUnit: "kmh",
@@ -45,7 +44,15 @@ const useAppStore = create<State>((set) => ({
         const { cityName } = await getUserCountry();
         set({ cityName });
     },
-    weather: null
+    weather: null,
+    longitude: null,
+    latitude: null,
+    updateHourly: (hourlyData) => set((state) => ({
+        weather: {
+            ...state.weather!,
+            hourly: hourlyData,
+        },
+    })),
 }))
 
 export default useAppStore;

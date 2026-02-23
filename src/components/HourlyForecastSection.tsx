@@ -1,16 +1,48 @@
-import { useEffect, useRef } from "react";
+import { useCallback, useEffect, useRef } from "react";
 import dropDownIcon from "../assets/images/icon-dropdown.svg";
-import { cn } from "../lib/utils";
+import {
+  cn,
+  convertDayToString,
+  formatValue,
+  validateWeatherIcon,
+} from "../lib/utils";
 import useAppStore from "../store";
 import NavbarButton from "./NavbarButton";
-
-import cloudy from "/icon-partly-cloudy.webp";
 import ListTile from "./ListTile";
+import { getHourlyWeather } from "../lib/api";
 
 const HourlyForecastSection = () => {
-  const { day, setDay, showDays, setShowDays } = useAppStore();
+  const { day, showDays, setShowDays, weather } = useAppStore();
 
   const dropdownRef = useRef<HTMLDivElement | null>(null);
+
+  const displayDay = convertDayToString(day.getDay());
+
+  // To get every day of the week
+  const getWeekDays = useCallback(() => {
+    const firstDay = new Date(day);
+
+    // Go back to Sunday
+    firstDay.setDate(day.getDate() - day.getDay());
+
+    return Array.from({ length: 7 }, (_, i) => {
+      const day = new Date(firstDay);
+      day.setDate(firstDay.getDate() + i);
+      return day;
+    });
+  }, [day]);
+
+  const week = getWeekDays();
+  // console.log("week", week);
+
+  const handleDayChange = async (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+    date: Date,
+  ) => {
+    e.stopPropagation();
+    // get hourly weather from api
+    await getHourlyWeather(date);
+  };
 
   useEffect(() => {
     function handleClickOutside(e: MouseEvent) {
@@ -44,7 +76,10 @@ const HourlyForecastSection = () => {
           className="rounded-lg bg-black-700 p-3 hover:cursor-pointer hover:bg-black-600"
         >
           <menu className="flex gap-4 items-center text-sm relative">
-            <span className="text-white font-Bricolage-bold"> {day} </span>
+            <span className="text-white font-Bricolage-bold">
+              {" "}
+              {displayDay}{" "}
+            </span>
             <span>
               <img src={dropDownIcon} alt="arrow down" />
             </span>
@@ -59,94 +94,88 @@ const HourlyForecastSection = () => {
               )}
             >
               <NavbarButton
-                children={<p>Monday</p>}
-                onClick={(e) => {
-                  e.stopPropagation();
-                  setDay("Monday");
-                }}
+                children={<p>{convertDayToString(week[0].getDay())}</p>}
+                onClick={(e) => handleDayChange(e, week[0])}
                 className={cn(
-                  `
-                text-md py-2 pl-3 text-white rounded-md text-left w-full hover:cursor-pointer
+                  `text-md py-2 pl-3 text-white rounded-md 
+                  text-left w-full hover:cursor-pointer
                     `,
-                  day === "Monday" ? "bg-black-600" : "hover:bg-black-600",
+                  day.getDay() === week[0].getDay()
+                    ? "bg-black-600"
+                    : "hover:bg-black-600",
                 )}
               />
               <NavbarButton
-                children={<p>Tuesday</p>}
-                onClick={(e) => {
-                  e.stopPropagation();
-                  setDay("Tuesday");
-                }}
+                children={<p>{convertDayToString(week[1].getDay())}</p>}
+                onClick={(e) => handleDayChange(e, week[1])}
                 className={cn(
-                  `
-                text-md py-2 pl-3 text-white rounded-md text-left w-full hover:cursor-pointer
+                  `text-md py-2 pl-3 text-white rounded-md 
+                  text-left w-full hover:cursor-pointer
                     `,
-                  day === "Tuesday" ? "bg-black-600" : "hover:bg-black-600",
+                  day.getDay() === week[1].getDay()
+                    ? "bg-black-600"
+                    : "hover:bg-black-600",
                 )}
               />
               <NavbarButton
-                children={<p>Wednesday</p>}
-                onClick={(e) => {
-                  e.stopPropagation();
-                  setDay("Wednesday");
-                }}
+                children={<p>{convertDayToString(week[2].getDay())}</p>}
+                onClick={(e) => handleDayChange(e, week[2])}
                 className={cn(
-                  `
-                text-md py-2 pl-3 text-white rounded-md text-left w-full hover:cursor-pointer
+                  `text-md py-2 pl-3 text-white 
+                  rounded-md text-left w-full 
+                  hover:cursor-pointer
                     `,
-                  day === "Wednesday" ? "bg-black-600" : "hover:bg-black-600",
+                  day.getDay() === week[2].getDay()
+                    ? "bg-black-600"
+                    : "hover:bg-black-600",
                 )}
               />
               <NavbarButton
-                children={<p>Thursday</p>}
-                onClick={(e) => {
-                  e.stopPropagation();
-                  setDay("Thursday");
-                }}
+                children={<p>{convertDayToString(week[3].getDay())}</p>}
+                onClick={(e) => handleDayChange(e, week[3])}
                 className={cn(
-                  `
-                text-md py-2 pl-3 text-white rounded-md text-left w-full hover:cursor-pointer
-                    `,
-                  day === "Thursday" ? "bg-black-600" : "hover:bg-black-600",
+                  `text-md py-2 pl-3 text-white rounded-md 
+                  text-left w-full hover:cursor-pointer`,
+                  day.getDay() === week[3].getDay()
+                    ? "bg-black-600"
+                    : "hover:bg-black-600",
                 )}
               />
               <NavbarButton
-                children={<p>Friday</p>}
-                onClick={(e) => {
-                  e.stopPropagation();
-                  setDay("Friday");
-                }}
+                children={<p>{convertDayToString(week[4].getDay())}</p>}
+                onClick={(e) => handleDayChange(e, week[4])}
                 className={cn(
-                  `
-                text-md py-2 pl-3 text-white rounded-md text-left w-full hover:cursor-pointer
+                  `text-md py-2 pl-3 text-white rounded-md 
+                  text-left w-full hover:cursor-pointer
                     `,
-                  day === "Friday" ? "bg-black-600" : "hover:bg-black-600",
+                  day.getDay() === week[4].getDay()
+                    ? "bg-black-600"
+                    : "hover:bg-black-600",
                 )}
               />
               <NavbarButton
-                children={<p>Saturday</p>}
-                onClick={(e) => {
-                  e.stopPropagation();
-                  setDay("Saturday");
-                }}
+                children={<p>{convertDayToString(week[5].getDay())}</p>}
+                onClick={(e) => handleDayChange(e, week[5])}
                 className={cn(
-                  `
-                text-md py-2 pl-3 text-white rounded-md text-left w-full hover:cursor-pointer
+                  `text-md py-2 pl-3 text-white 
+                  rounded-md text-left w-full 
+                  hover:cursor-pointer
                     `,
-                  day === "Saturday" ? "bg-black-600" : "hover:bg-black-600",
+                  day.getDay() === week[5].getDay()
+                    ? "bg-black-600"
+                    : "hover:bg-black-600",
                 )}
               />
               <NavbarButton
-                children={<p>Sunday</p>}
-                onClick={(e) => {
-                  e.stopPropagation();
-                  setDay("Sunday");
-                }}
+                children={<p>{convertDayToString(week[6].getDay())}</p>}
+                onClick={(e) => handleDayChange(e, week[6])}
                 className={cn(
-                  `
-                text-md py-2 pl-3 text-white rounded-md text-left w-full hover:cursor-pointer
+                  `text-md py-2 pl-3 text-white rounded-md 
+                  text-left w-full hover:cursor-pointer
                     `,
-                  day === "Sunday" ? "bg-black-600" : "hover:bg-black-600",
+                  day.getDay() === week[6].getDay()
+                    ? "bg-black-600"
+                    : "hover:bg-black-600",
                 )}
               />
             </div>
@@ -155,15 +184,17 @@ const HourlyForecastSection = () => {
       </div>
 
       {/* list tile */}
-      <ul className="pt-5 space-y-5">
-        <ListTile icon={cloudy} time="4 PM" temperature="20°" />
-        <ListTile icon={cloudy} time="4 PM" temperature="20°" />
-        <ListTile icon={cloudy} time="4 PM" temperature="20°" />
-        <ListTile icon={cloudy} time="4 PM" temperature="20°" />
-        <ListTile icon={cloudy} time="4 PM" temperature="20°" />
-        <ListTile icon={cloudy} time="4 PM" temperature="20°" />
-        <ListTile icon={cloudy} time="4 PM" temperature="20°" />
-        <ListTile icon={cloudy} time="4 PM" temperature="20°" />
+      <ul className="h-full pt-5 space-y-5 overflow-y-auto">
+        {Array.from({ length: 8 }, (_, i) => (
+          <ListTile
+            key={i}
+            icon={validateWeatherIcon(weather?.hourly.weatherCode[i] ?? 0)}
+            time={`${weather?.hourly.time[i]}`}
+            temperature={`${formatValue(
+              weather?.hourly.apparentTemperature[i],
+            )}°`}
+          />
+        ))}
       </ul>
     </aside>
   );

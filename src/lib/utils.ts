@@ -131,3 +131,13 @@ export function validateWeatherIcon(weatherCode: number) {
 }
 
 
+
+
+// Get the time from Date string
+export function getHoursFromDateString(time?: string) {
+  let date = new Date();
+  if (time !== undefined) {
+    date = new Date(time)
+  }
+  return date.getHours()
+}

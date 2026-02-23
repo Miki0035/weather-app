@@ -1,3 +1,5 @@
+import { getHoursFromDateString } from "../lib/utils";
+
 interface Props {
   icon: string;
   time: string;
@@ -13,7 +15,7 @@ const ListTile = ({ icon, time, temperature }: Props) => {
       {/* icon and time */}
       <div className="flex items-center justify-center gap-2">
         <img src={icon} alt="cloudy" className="size-10" />
-        <time className="text-lg">{time}</time>
+        <time className="text-lg">{getHoursFromDateString(time)} PM</time>
       </div>
       {/* temparature */}
       <p className="text-md">{temperature}</p>

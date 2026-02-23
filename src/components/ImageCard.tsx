@@ -8,9 +8,6 @@ import useAppStore from "../store";
 
 const ImageCard = () => {
   const { countryName, cityName, weather, temperatureUnit } = useAppStore();
-
-  console.log(`wheater time ${weather?.current}`);
-
   // formates date to display
   const formatedDate = () => {
     const now = new Date();
@@ -44,7 +41,7 @@ const ImageCard = () => {
       {/* temperature */}
       <div className="flex items-center gap-5 md:gap-2">
         <img
-          src={validateWeatherIcon(weather?.current.weatherCode ?? 4)}
+          src={validateWeatherIcon(weather?.current.weatherCode ?? 0)}
           alt="sun"
           className="size-24 md:size-32"
         />

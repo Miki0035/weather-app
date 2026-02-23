@@ -7,7 +7,11 @@ import ImageCard from "./components/ImageCard";
 import { useEffect } from "react";
 import { getWeather } from "./lib/api";
 import useAppStore from "./store";
-import { formatValue, validateWeatherIcon } from "./lib/utils";
+import {
+  convertDayToString,
+  formatValue,
+  validateWeatherIcon,
+} from "./lib/utils";
 const App = () => {
   const { weather, unitType } = useAppStore();
 
@@ -63,62 +67,23 @@ const App = () => {
                 </h5>
                 <div className="w-full flex  gap-4 flex-wrap justify-start">
                   {/* forecast card */}
-                  <ForcastCard
-                    icon={validateWeatherIcon(
-                      weather?.current.weatherCode ?? 0,
-                    )}
-                    day="Tue"
-                    highestTemp="20°"
-                    lowestTemp=" 14°"
-                  />
-                  <ForcastCard
-                    icon={validateWeatherIcon(
-                      weather?.current.weatherCode ?? 0,
-                    )}
-                    day="Tue"
-                    highestTemp="20°"
-                    lowestTemp=" 14°"
-                  />
-                  <ForcastCard
-                    icon={validateWeatherIcon(
-                      weather?.current.weatherCode ?? 0,
-                    )}
-                    day="Tue"
-                    highestTemp="20°"
-                    lowestTemp=" 14°"
-                  />
-                  <ForcastCard
-                    icon={validateWeatherIcon(
-                      weather?.current.weatherCode ?? 0,
-                    )}
-                    day="Tue"
-                    highestTemp="20°"
-                    lowestTemp=" 14°"
-                  />
-                  <ForcastCard
-                    icon={validateWeatherIcon(
-                      weather?.current.weatherCode ?? 0,
-                    )}
-                    day="Tue"
-                    highestTemp="20°"
-                    lowestTemp=" 14°"
-                  />
-                  <ForcastCard
-                    icon={validateWeatherIcon(
-                      weather?.current.weatherCode ?? 0,
-                    )}
-                    day="Tue"
-                    highestTemp="20°"
-                    lowestTemp=" 14°"
-                  />
-                  <ForcastCard
-                    icon={validateWeatherIcon(
-                      weather?.current.weatherCode ?? 0,
-                    )}
-                    day="Tue"
-                    highestTemp="20°"
-                    lowestTemp=" 14°"
-                  />
+                  {Array.from({ length: 7 }, (_, i) => (
+                    <ForcastCard
+                      key={i}
+                      icon={validateWeatherIcon(
+                        weather?.daily.weatherCode[i] ?? 0,
+                      )}
+                      day={convertDayToString(
+                        weather?.daily.time[i].getDay() ?? 0,
+                      )}
+                      highestTemp={`${formatValue(
+                        weather?.daily.temperatureMax[i] ?? 0,
+                      )}°`}
+                      lowestTemp={`${formatValue(
+                        weather?.daily.temperatureMin[i] ?? 0,
+                      )}°`}
+                    />
+                  ))}
                 </div>
               </div>
             </aside>
