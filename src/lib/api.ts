@@ -30,6 +30,8 @@ export const getWeather = async (searchTerm: string) => {
         "wind_speed_unit": windSpeed
     }
 
+    useAppStore.setState({ hasError: false });
+    useAppStore.setState({ isLoading: true });
     try {
         if (searchTerm === "") {
             // Get coordianates of the search country
@@ -65,11 +67,7 @@ export const getWeather = async (searchTerm: string) => {
             }
             const hourlyResponses = await fetchWeatherApi(WEATHER_ENDPOINT_URL, hourlyParams);
             const hourlyResponse = hourlyResponses[0];
-
-            // const utcOffsetSeconds = hourlyResponse.utcOffsetSeconds();
-            // const current = response.current()!;
             const hourly = hourlyResponse.hourly()!;
-            // const daily = response.daily()!;
 
 
             const weatherData = {
@@ -99,9 +97,13 @@ export const getWeather = async (searchTerm: string) => {
                 },
 
             };
+
+            if (weatherData.current === undefined || weatherData.daily === undefined || weatherData.hourly === undefined) {
+                useAppStore.setState({ weather: null })
+                return
+            }
             useAppStore.setState({ weather: weatherData })
-            console.log(`There is no search term weatherData:`, weatherData)
-            return weatherData;
+            return;
         }
 
 
@@ -138,13 +140,10 @@ export const getWeather = async (searchTerm: string) => {
             longitude: [longitude],
             ...HOURLY_WEATHER_QUERY
         }
+
         const hourlyResponses = await fetchWeatherApi(WEATHER_ENDPOINT_URL, hourlyParams);
         const hourlyResponse = hourlyResponses[0];
-
-        // const utcOffsetSeconds = hourlyResponse.utcOffsetSeconds();
-        // const current = response.current()!;
         const hourly = hourlyResponse.hourly()!;
-        // const daily = response.daily()!;
 
 
         const weatherData = {
@@ -176,16 +175,19 @@ export const getWeather = async (searchTerm: string) => {
         };
         useAppStore.setState({ weather: weatherData })
         console.log(`There is search term weatherData:`, weatherData)
-        return weatherData;
-
+        return;
     } catch (error) {
-        console.log('error getting weather', error);
+        console.log('error getting weather data', error);
+        useAppStore.setState({ hasError: true });
         return null;
+    } finally {
+        useAppStore.setState({ isLoading: false });
     }
 }
 
 
 export const getHourlyWeather = async (date: Date) => {
+    console.log(`date to be sent to api`, date.toISOString().split('T')[0])
     const HOURLY_WEATHER_QUERY = {
         hourly: 'weather_code,apparent_temperature',
         start_date: date.toISOString().split('T')[0],
@@ -196,18 +198,23 @@ export const getHourlyWeather = async (date: Date) => {
         "wind_speed_unit": windSpeed
     }
 
-    console.log(`the date is  `, date.getDay())
+    useAppStore.setState({ hasError: false });
+    useAppStore.setState({ isLoadingHourly: true });
 
     try {
-
         // get hourly weather data of the country
         const hourlyParams = {
             latitude: [stateLatitude],
             longitude: [stateLongitude],
             ...HOURLY_WEATHER_QUERY
         }
+
+
         const hourlyResponses = await fetchWeatherApi(WEATHER_ENDPOINT_URL, hourlyParams);
+
         const hourlyResponse = hourlyResponses[0];
+
+        console.log(`hourly response`, hourlyResponse)
 
         const utcOffsetSeconds = hourlyResponse.utcOffsetSeconds();
         const hourly = hourlyResponse.hourly()!;
@@ -228,10 +235,12 @@ export const getHourlyWeather = async (date: Date) => {
         // update selected date
         setDay(date)
         console.log(`There is new hourly data weatherData:`, weatherData)
-        return weatherData;
 
     } catch (error) {
-        console.log('error getting weather', error);
-        return null;
+        console.log('Error getting hourly weather', error);
+        useAppStore.setState({ hasError: true });
+        return;
+    } finally {
+        useAppStore.setState({ isLoadingHourly: false });
     }
 }

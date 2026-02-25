@@ -8,7 +8,7 @@ interface Props {
 
 const NavbarButton = ({ onClick, children, className }: Props) => {
   return (
-    <button onClick={onClick} className={className}>
+    <button onClick={onClick} className={className} type="button">
       {children}
     </button>
   );

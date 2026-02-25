@@ -9,6 +9,7 @@ import { ChevronUp } from "lucide-react";
 import { useEffect, useRef } from "react";
 import type { UnitType } from "../types";
 import NavbarButton from "./NavbarButton";
+import { getWeather } from "../lib/api";
 
 const Navbar = () => {
   const {
@@ -16,6 +17,7 @@ const Navbar = () => {
     setShowDropdown,
     unitType,
     setUnitType,
+    countryName,
     temperatureUnit: temperature,
     windSpeedUnit: windSpeed,
     percipitationUnit: percipitation,
@@ -40,12 +42,13 @@ const Navbar = () => {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [setShowDropdown, showDropdown]);
 
-  const handleSelect = (
+  const handleSelect = async (
     e: React.MouseEvent<HTMLButtonElement>,
     value: string,
   ) => {
     e.stopPropagation();
     setUnitType(value as UnitType);
+    await getWeather(countryName);
   };
 
   return (

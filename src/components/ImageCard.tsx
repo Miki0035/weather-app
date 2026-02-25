@@ -5,9 +5,11 @@ import {
   validateWeatherIcon,
 } from "../lib/utils";
 import useAppStore from "../store";
+import loadingIcon from "../assets/images/icon-loading.svg";
 
 const ImageCard = () => {
-  const { countryName, cityName, weather, temperatureUnit } = useAppStore();
+  const { countryName, cityName, weather, temperatureUnit, isLoading } =
+    useAppStore();
   // formates date to display
   const formatedDate = () => {
     const now = new Date();
@@ -21,6 +23,19 @@ const ImageCard = () => {
     const year = weather?.current.time.getFullYear() ?? now.getFullYear();
     return `${day}, ${month} ${date}, ${year} `;
   };
+
+  if (isLoading)
+    return (
+      <div
+        className={`w-full h-65 rounded-4xl 
+                bg-black-700
+                flex flex-col items-center 
+                justify-center gap-2`}
+      >
+        <img src={loadingIcon} alt="loading" className="size-10" />
+        <p className="text-black-200">Loading...</p>
+      </div>
+    );
 
   return (
     <div

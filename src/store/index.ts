@@ -4,6 +4,7 @@ import { getUserCountry } from '../lib/utils'
 
 const useAppStore = create<State>((set) => ({
     isLoading: false,
+    isLoadingHourly: false,
     unitType: "metric",
     setUnitType: (value: "metric" | "imperial") => set(() => {
         if (value === "metric") {
@@ -53,6 +54,7 @@ const useAppStore = create<State>((set) => ({
             hourly: hourlyData,
         },
     })),
+    hasError: false,
 }))
 
 export default useAppStore;

@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef } from "react";
+import { useEffect, useMemo, useRef } from "react";
 import dropDownIcon from "../assets/images/icon-dropdown.svg";
 import {
   cn,
@@ -12,14 +12,14 @@ import ListTile from "./ListTile";
 import { getHourlyWeather } from "../lib/api";
 
 const HourlyForecastSection = () => {
-  const { day, showDays, setShowDays, weather } = useAppStore();
+  const { day, showDays, setShowDays, weather, isLoading } = useAppStore();
 
   const dropdownRef = useRef<HTMLDivElement | null>(null);
 
   const displayDay = convertDayToString(day.getDay());
 
   // To get every day of the week
-  const getWeekDays = useCallback(() => {
+  const week = useMemo(() => {
     const firstDay = new Date(day);
 
     // Go back to Sunday
@@ -32,7 +32,6 @@ const HourlyForecastSection = () => {
     });
   }, [day]);
 
-  const week = getWeekDays();
   // console.log("week", week);
 
   const handleDayChange = async (
@@ -40,6 +39,7 @@ const HourlyForecastSection = () => {
     date: Date,
   ) => {
     e.stopPropagation();
+    console.log(`date to be sent to api`, date.toISOString().split("T")[0]);
     // get hourly weather from api
     await getHourlyWeather(date);
   };
@@ -77,8 +77,7 @@ const HourlyForecastSection = () => {
         >
           <menu className="flex gap-4 items-center text-sm relative">
             <span className="text-white font-Bricolage-bold">
-              {" "}
-              {displayDay}{" "}
+              {isLoading ? "—" : displayDay}
             </span>
             <span>
               <img src={dropDownIcon} alt="arrow down" />
@@ -88,7 +87,7 @@ const HourlyForecastSection = () => {
               className={cn(
                 `absolute top-10 -right-3 rounded-xl px-3 py-2 flex flex-col gap-3 transition-all w-48 bg-black-800 
                 border border-black-600`,
-                showDays
+                showDays && !isLoading
                   ? "opacity-100 pointer-events-auto h-88"
                   : "opacity-0 pointer-events-none h-0",
               )}

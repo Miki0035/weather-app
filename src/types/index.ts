@@ -20,10 +20,12 @@ export type State = {
     fetchCountryName: () => Promise<void>,
     fetchCityName: () => Promise<void>
     isLoading: boolean,
+    isLoadingHourly: boolean,
     weather: WeatherData | null,
     latitude: number | null,
     longitude: number | null,
     updateHourly: (value: HourlyWeatherData) => void;
+    hasError: boolean;
 }
 
 export interface WeatherData {

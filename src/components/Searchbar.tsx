@@ -1,7 +1,6 @@
 import { Search } from "lucide-react";
 import { useState, type FormEvent } from "react";
 import { getWeather } from "../lib/api";
-import useAppStore from "../store";
 
 export function Searchbar() {
   const [searchTerm, setSearchTerm] = useState("");
@@ -9,9 +8,8 @@ export function Searchbar() {
   const handleSubmit = async (e: FormEvent) => {
     try {
       e.preventDefault();
-      const response = await getWeather(searchTerm);
+      await getWeather(searchTerm);
       // console.log(`response`, response);
-      useAppStore.setState({ weather: response });
     } catch (error) {
       console.log(`form submit`, error);
     }

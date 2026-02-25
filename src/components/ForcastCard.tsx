@@ -1,3 +1,5 @@
+import useAppStore from "../store";
+
 interface Props {
   icon: string;
   day: string;
@@ -5,6 +7,15 @@ interface Props {
   lowestTemp: string;
 }
 const ForcastCard = ({ icon, day, highestTemp, lowestTemp }: Props) => {
+  const { isLoading } = useAppStore();
+
+  if (isLoading)
+    return (
+      <div
+        className="flex flex-col h-50 items-center gap-4 bg-black-800 border border-black-600 
+    rounded-lg grow flex-1"
+      ></div>
+    );
   return (
     <div
       className="flex flex-col items-center gap-4 bg-black-800 border border-black-600 
