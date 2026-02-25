@@ -72,12 +72,12 @@ const App = () => {
                     <Chips
                       label="Wind"
                       value={`${formatValue(weather?.current?.windSpeed)}`}
-                      measurement={unitType === "metric" ? "km/h" : "mph"}
+                      measurement={unitType === "metric" ? " km/h" : " mph"}
                     />
                     <Chips
                       label="Percipitation"
                       value={`${weather?.current.percipitation}`}
-                      measurement={unitType === "metric" ? "mm" : "in"}
+                      measurement={unitType === "metric" ? " mm" : " inch"}
                     />
                   </div>
                   {/* Lower part */}

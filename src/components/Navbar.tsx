@@ -58,7 +58,7 @@ const Navbar = () => {
           <img
             src={logo}
             alt="logo"
-            className="size-32 sm:size-42 object-contain"
+            className="size-32 sm:w-48 object-contain"
           />
         </a>
         <div className="rounded-lg bg-black-800 p-3 hover:cursor-pointer hover:bg-black-700">

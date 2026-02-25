@@ -39,7 +39,6 @@ const HourlyForecastSection = () => {
     date: Date,
   ) => {
     e.stopPropagation();
-    console.log(`date to be sent to api`, date.toISOString().split("T")[0]);
     // get hourly weather from api
     await getHourlyWeather(date);
   };
@@ -183,7 +182,7 @@ const HourlyForecastSection = () => {
       </div>
 
       {/* list tile */}
-      <ul className="h-full pt-5 space-y-5 overflow-y-auto">
+      <ul className="w-full h-full pt-5 space-y-5 overflow-y-auto">
         {Array.from({ length: 8 }, (_, i) => (
           <ListTile
             key={i}
