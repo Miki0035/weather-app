@@ -32,8 +32,6 @@ const HourlyForecastSection = () => {
     });
   }, [day]);
 
-  // console.log("week", week);
-
   const handleDayChange = async (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
     date: Date,
@@ -61,7 +59,7 @@ const HourlyForecastSection = () => {
   }, [setShowDays, showDays]);
 
   return (
-    <aside className="w-full rounded-xl p-4 bg-black-800">
+    <div className="w-full rounded-xl p-4 bg-black-800">
       {/* header */}
       <div className="w-full flex items-center justify-between">
         <h5 className="text-left text-lg font-semibold text-white">
@@ -79,7 +77,7 @@ const HourlyForecastSection = () => {
               {isLoading ? "—" : displayDay}
             </span>
             <span>
-              <img src={dropDownIcon} alt="arrow down" />
+              <img src={dropDownIcon} alt="arrow down icon" />
             </span>
             {/* menu items */}
             <div
@@ -194,7 +192,7 @@ const HourlyForecastSection = () => {
           />
         ))}
       </ul>
-    </aside>
+    </div>
   );
 };
 

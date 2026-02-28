@@ -1,7 +1,10 @@
 import useAppStore from "../store";
 
 interface Props {
-  icon: string;
+  icon: {
+    src: string;
+    alt: string;
+  };
   day: string;
   highestTemp: string;
   lowestTemp: string;
@@ -23,7 +26,7 @@ const ForcastCard = ({ icon, day, highestTemp, lowestTemp }: Props) => {
     >
       <p className="text-white font-semibold text-md">{day}</p>
       <div className="flex justify-center items-center">
-        <img src={icon} alt={icon} className="object-contain size-14" />
+        <img src={icon.src} alt={icon.alt} className="object-contain size-14" />
       </div>
       <div className="w-full flex justify-between items-center text-base font-semibold">
         <p className="text-white">{highestTemp}</p>

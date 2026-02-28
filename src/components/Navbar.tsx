@@ -17,7 +17,7 @@ const Navbar = () => {
     setShowDropdown,
     unitType,
     setUnitType,
-    countryName,
+    cityName,
     temperatureUnit: temperature,
     windSpeedUnit: windSpeed,
     percipitationUnit: percipitation,
@@ -48,7 +48,7 @@ const Navbar = () => {
   ) => {
     e.stopPropagation();
     setUnitType(value as UnitType);
-    await getWeather(countryName);
+    await getWeather(cityName);
   };
 
   return (
@@ -69,14 +69,18 @@ const Navbar = () => {
             onClick={setShowDropdown}
           >
             <span>
-              <img src={gearIcon} alt="gear" className="w-5 h-5 object-cover" />
+              <img
+                src={gearIcon}
+                alt="gear icon"
+                className="w-5 h-5 object-cover"
+              />
             </span>
             <span className="text-white font-bri"> Units </span>
             <span>
               {showDropdown ? (
                 <ChevronUp className="text-white w-5 h-5" />
               ) : (
-                <img src={dropDownIcon} alt="arrow down" />
+                <img src={dropDownIcon} alt="arrow down icon" />
               )}
             </span>
             {/* menu items */}
@@ -84,7 +88,7 @@ const Navbar = () => {
               className={cn(
                 `absolute z-100 top-10 -right-3 rounded-lg px-3 py-2 flex flex-col gap-3 transition-all w-64 bg-black-800`,
                 showDropdown
-                  ? "opacity-100  h-96"
+                  ? "opacity-100  h-96  pointer-events-auto"
                   : "opacity-0  h-0 pointer-events-none",
               )}
             >
@@ -112,7 +116,11 @@ const Navbar = () => {
                     <>
                       Celsius (°C)
                       {temperature === "celsius" && (
-                        <img src={checkmark} className="object-cover" />
+                        <img
+                          src={checkmark}
+                          alt="checkmark"
+                          className="object-cover"
+                        />
                       )}
                     </>
                   }
@@ -128,7 +136,11 @@ const Navbar = () => {
                     <>
                       Fahrenheit (°F)
                       {temperature === "fahrenheit" && (
-                        <img src={checkmark} className="object-cover" />
+                        <img
+                          src={checkmark}
+                          alt="checkmark"
+                          className="object-cover"
+                        />
                       )}
                     </>
                   }
@@ -148,7 +160,11 @@ const Navbar = () => {
                     <>
                       km/h{" "}
                       {windSpeed === "kmh" && (
-                        <img src={checkmark} className="object-cover" />
+                        <img
+                          src={checkmark}
+                          alt="checkmark"
+                          className="object-cover"
+                        />
                       )}
                     </>
                   }
@@ -163,7 +179,11 @@ const Navbar = () => {
                     <>
                       mph{" "}
                       {windSpeed === "mph" && (
-                        <img src={checkmark} className="object-cover" />
+                        <img
+                          src={checkmark}
+                          alt="checkmark"
+                          className="object-cover"
+                        />
                       )}
                     </>
                   }
@@ -183,7 +203,11 @@ const Navbar = () => {
                     <>
                       Millimeters (mm)
                       {percipitation === "mm" && (
-                        <img src={checkmark} className="object-cover" />
+                        <img
+                          src={checkmark}
+                          alt="checkmark"
+                          className="object-cover"
+                        />
                       )}
                     </>
                   }
@@ -198,7 +222,11 @@ const Navbar = () => {
                     <>
                       Inches (in)
                       {percipitation === "inch" && (
-                        <img src={checkmark} className="object-cover" />
+                        <img
+                          src={checkmark}
+                          alt="checkmark"
+                          className="object-cover"
+                        />
                       )}
                     </>
                   }

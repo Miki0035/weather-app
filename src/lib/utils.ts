@@ -109,25 +109,46 @@ export function formatValue(value: number | undefined) {
 
 export function validateWeatherIcon(weatherCode: number) {
   if (weatherCode === 0) {
-    return "./icon-sunny.webp";
+    return {
+      src: "./icon-sunny.webp",
+      alt: "sunny icon"
+    };
   }
 
   if (weatherCode <= 3) {
-    return "./icon-partly-cloudy.webp"
+    return {
+      src: "./icon-partly-cloudy.webp",
+      alt: "cloudy icon"
+    }
   }
   if (weatherCode <= 48) {
-    return "./icon-fog.webp"
+    return {
+      src: "./icon-fog.webp",
+      alt: "fog icon"
+    }
   }
   if (weatherCode <= 57) {
-    return "./icon-drizzle.webp"
+    return {
+      src: "./icon-drizzle.webp",
+      alt: "rain drizzle icon"
+    }
   }
   if (weatherCode <= 67) {
-    return "./icon-rain.webp"
+    return {
+      src: "./icon-rain.webp",
+      alt: "rainy cloud icon"
+    }
   }
   if (weatherCode <= 86) {
-    return "./icon-snow.webp"
+    return {
+      src: "./icon-snow.webp",
+      alt: "snowy cloud icon"
+    }
   }
-  return "./icon-storm.webp"
+  return {
+    src: "./icon-storm.webp",
+    alt: "storm cloud icon"
+  }
 }
 
 

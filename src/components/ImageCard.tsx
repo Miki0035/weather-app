@@ -32,7 +32,7 @@ const ImageCard = () => {
                 flex flex-col items-center 
                 justify-center gap-2`}
       >
-        <img src={loadingIcon} alt="loading" className="size-10" />
+        <img src={loadingIcon} alt="loading icon" className="size-10" />
         <p className="text-black-200">Loading...</p>
       </div>
     );
@@ -48,16 +48,16 @@ const ImageCard = () => {
     >
       {/* country name */}
       <div className="flex flex-col items-center sm:items-start">
-        <h5 className="text-2xl text-white font-semibold">
+        <h2 className="text-2xl text-white font-semibold">
           {cityName} , {countryName}
-        </h5>
+        </h2>
         <h4 className="text-md text-black-200">{formatedDate() ?? " "}</h4>
       </div>
       {/* temperature */}
       <div className="flex items-center gap-5 md:gap-2">
         <img
-          src={validateWeatherIcon(weather?.current.weatherCode ?? 0)}
-          alt="sun"
+          src={validateWeatherIcon(weather?.current.weatherCode ?? 0).src}
+          alt={validateWeatherIcon(weather?.current.weatherCode ?? 0).alt}
           className="size-24 md:size-32"
         />
         <p className="font-semibold font-semibold text-6xl sm:text-8xl italic text-white">

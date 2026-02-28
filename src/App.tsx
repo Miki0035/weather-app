@@ -54,7 +54,7 @@ const App = () => {
               <section className="w-full grid grid-cols-1 gap-10 lg:gap-5 lg:grid-cols-3 lg:pb-12">
                 {/* left side */}
                 {/* upper grid */}
-                <aside className="space-y-8 md:flex md:flex-col md:justify-between md:col-span-2">
+                <div className="space-y-8 md:flex md:flex-col md:justify-between md:col-span-2">
                   {/* image Card */}
                   <ImageCard />
                   {/* smaller card grid */}
@@ -107,7 +107,7 @@ const App = () => {
                       ))}
                     </div>
                   </div>
-                </aside>
+                </div>
 
                 {/* right side */}
                 <HourlyForecastSection />

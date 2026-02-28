@@ -2,7 +2,10 @@ import { getHoursFromDateString } from "../lib/utils";
 import useAppStore from "../store";
 
 interface Props {
-  icon: string;
+  icon: {
+    src: string;
+    alt: string;
+  };
   time: string;
   temperature: string;
 }
@@ -24,7 +27,7 @@ const ListTile = ({ icon, time, temperature }: Props) => {
     >
       {/* icon and time */}
       <div className="flex items-center justify-center gap-2">
-        <img src={icon} alt="cloudy" className="size-10" />
+        <img src={icon.src} alt={icon.alt} className="size-10" />
         <time className="text-lg">{getHoursFromDateString(time)} PM</time>
       </div>
       {/* temparature */}

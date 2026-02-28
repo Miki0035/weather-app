@@ -12,7 +12,6 @@ export function Searchbar() {
       e.preventDefault();
       setCountries([]);
       await getWeather(searchTerm);
-      // console.log(`response`, response);
     } catch (error) {
       console.error(`form submit`, error);
     }
@@ -54,6 +53,7 @@ export function Searchbar() {
         <input
           type="text"
           placeholder="Search for a place..."
+          aria-label="Search city"
           className="font-bricolage placeholder:text-black-200 bg-none text-white w-full caret-white outline-none hover:cursor-pointer"
           onChange={(e) => setSearchTerm(e.target.value)}
         />

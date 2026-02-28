@@ -2,7 +2,7 @@ import { fetchWeatherApi } from "openmeteo";
 import useAppStore from "../store";
 import type { Country } from "../types";
 
-const { temperatureUnit: temperature, windSpeedUnit: windSpeed, percipitationUnit: percipitation, day, updateHourly, setDay } = useAppStore.getState()
+const { updateHourly, setDay } = useAppStore.getState()
 const WEATHER_ENDPOINT_URL = `https://api.open-meteo.com/v1/forecast`;
 const LOCATION_ENDPOINT_URL = "https://geocoding-api.open-meteo.com/v1/search"
 
@@ -11,6 +11,8 @@ const range = (start: number, stop: number, step: number) =>
     Array.from({ length: (stop - start) / step }, (_, i) => start + i * step);
 
 export const getWeather = async (searchTerm: string) => {
+
+    const { temperatureUnit: temperature, windSpeedUnit: windSpeed, percipitationUnit: percipitation, day } = useAppStore.getState()
 
     const WEATHER_QUERY = {
         current: "weather_code,temperature_2m,apparent_temperature,relative_humidity_2m,wind_speed_10m,precipitation",
@@ -102,6 +104,7 @@ export const getWeather = async (searchTerm: string) => {
 
             };
 
+
             if (weatherData.current === undefined || weatherData.daily === undefined || weatherData.hourly === undefined) {
                 useAppStore.setState({ weather: null })
                 return
@@ -191,6 +194,9 @@ export const getWeather = async (searchTerm: string) => {
 
 
 export const getHourlyWeather = async (date: Date) => {
+
+    const { temperatureUnit: temperature, windSpeedUnit: windSpeed, percipitationUnit: percipitation } = useAppStore.getState()
+
 
     const HOURLY_WEATHER_QUERY = {
         hourly: 'weather_code,apparent_temperature',
