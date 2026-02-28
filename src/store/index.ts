@@ -45,7 +45,7 @@ const useAppStore = create<State>((set) => ({
         const { cityName } = await getUserCountry();
         set({ cityName });
     },
-    weather: null,
+    weather: undefined,
     longitude: null,
     latitude: null,
     updateHourly: (hourlyData) => set((state) => ({

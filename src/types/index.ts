@@ -21,7 +21,7 @@ export type State = {
     fetchCityName: () => Promise<void>
     isLoading: boolean,
     isLoadingHourly: boolean,
-    weather: WeatherData | null,
+    weather: WeatherData | null | undefined,
     latitude: number | null,
     longitude: number | null,
     updateHourly: (value: HourlyWeatherData) => void;
@@ -77,4 +77,16 @@ interface HourlyWeatherData {
     weatherCode: Float32Array<ArrayBufferLike>;
     // apperent temperature for each hour of the day
     apparentTemperature: Float32Array<ArrayBufferLike>;
+}
+
+export interface Country {
+    name: string;
+    country: string;
+    country_code: string;
+    country_id: number;
+    elevation: number;
+    id: number;
+    latitude: number;
+    longitude: number;
+    population: number;
 }

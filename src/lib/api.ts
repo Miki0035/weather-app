@@ -1,5 +1,6 @@
 import { fetchWeatherApi } from "openmeteo";
 import useAppStore from "../store";
+import type { Country } from "../types";
 
 const { temperatureUnit: temperature, windSpeedUnit: windSpeed, percipitationUnit: percipitation, day, updateHourly, setDay } = useAppStore.getState()
 const WEATHER_ENDPOINT_URL = `https://api.open-meteo.com/v1/forecast`;
@@ -36,7 +37,7 @@ export const getWeather = async (searchTerm: string) => {
     try {
         if (searchTerm === "") {
             // Get coordianates of the search country
-            const coordinateResponse = await fetch(`${LOCATION_ENDPOINT_URL}?name=berlin`)
+            const coordinateResponse = await fetch(`${LOCATION_ENDPOINT_URL}?name=Addis Ababa`)
             const coordinates = await coordinateResponse.json();
 
 
@@ -248,5 +249,27 @@ export const getHourlyWeather = async (date: Date) => {
         return;
     } finally {
         useAppStore.setState({ isLoadingHourly: false });
+    }
+}
+
+
+// get countries to select
+export const getCountries = async (searchTerm: string): Promise<Country[] | undefined> => {
+    try {
+        if (searchTerm === "") return;
+
+        // Get coordianates of the search country
+        const coordinateResponse = await fetch(`${LOCATION_ENDPOINT_URL}?name=${searchTerm}`)
+        const coordinates = await coordinateResponse.json();
+
+        // get country to show on card
+        // get latitude and longitude  to get weather data
+        return coordinates.results as Country[];
+
+    } catch (error) {
+        console.error('error getting countries data', error);
+        useAppStore.setState({ hasError: true, weather: null });
+    } finally {
+        useAppStore.setState({ isLoading: false });
     }
 }

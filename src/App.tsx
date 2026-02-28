@@ -16,12 +16,13 @@ import Error from "./components/Error";
 const App = () => {
   const { weather, unitType, hasError, cityName } = useAppStore();
 
+  // const [isFirstLoad, setIsFirstLoad] = useState(true)
+
   useEffect(() => {
     handleGetWeather();
   }, []);
 
   const handleGetWeather = async () => {
-    console.log("cityName", cityName);
     // search term already exists
     if (cityName !== "") {
       await getWeather(cityName);
@@ -76,7 +77,7 @@ const App = () => {
                     />
                     <Chips
                       label="Percipitation"
-                      value={`${weather?.current.percipitation}`}
+                      value={`${formatValue(weather?.current.percipitation)}`}
                       measurement={unitType === "metric" ? " mm" : " inch"}
                     />
                   </div>
