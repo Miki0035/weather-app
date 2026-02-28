@@ -1,5 +1,6 @@
 {
   "name": "weather-app",
+  "homepage": "https://Miki0035.github.io/weather-app/",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -7,13 +8,16 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "predeploy": "npm run build",
+    "deploy": "gh pages -d dist"
   },
   "dependencies": {
     "@base-ui/react": "^1.1.0",
     "@tailwindcss/vite": "^4.1.13",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
+    "gh-pages": "^6.3.0",
     "lucide-react": "^0.563.0",
     "openmeteo": "^1.2.3",
     "radix-ui": "^1.4.3",
