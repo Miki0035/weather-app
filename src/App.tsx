@@ -83,9 +83,9 @@ const App = () => {
                   </div>
                   {/* Lower part */}
                   <div>
-                    <h5 className="text-left text-xl font-semibold text-white mb-5">
+                    <h2 className="text-left text-xl font-semibold text-white mb-5">
                       Daily forecast
-                    </h5>
+                    </h2>
                     <div className="w-full flex  gap-4 flex-wrap justify-start">
                       {/* forecast card */}
                       {Array.from({ length: 7 }, (_, i) => (

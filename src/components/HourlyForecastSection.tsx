@@ -62,9 +62,9 @@ const HourlyForecastSection = () => {
     <div className="w-full rounded-xl p-4 bg-black-800">
       {/* header */}
       <div className="w-full flex items-center justify-between">
-        <h5 className="text-left text-lg font-semibold text-white">
+        <h3 className="text-left text-lg font-semibold text-white">
           Hourly forecast
-        </h5>
+        </h3>
 
         {/* menu button */}
         <div

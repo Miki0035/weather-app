@@ -82,6 +82,7 @@ export function Searchbar() {
         className="bg-blue-500 text-white font-regular w-full hover:bg-blue-700
             hover:cursor-pointer py-3 px-5 rounded-lg sm:w-28 disabled:cursor-not-allowed disabled:bg-gray-500"
         disabled={searchTerm === ""}
+        aria-label="Search button. Disabled until a city name is entered."
       >
         Search
       </button>
