@@ -73,9 +73,9 @@ const HourlyForecastSection = () => {
           className="rounded-lg bg-black-700 p-3 hover:cursor-pointer hover:bg-black-600"
         >
           <menu className="flex gap-4 items-center text-sm relative">
-            <span className="text-white font-Bricolage-bold">
+            <li className="text-white font-Bricolage-bold">
               {isLoading ? "—" : displayDay}
-            </span>
+            </li>
             <span>
               <img src={dropDownIcon} alt="arrow down icon" />
             </span>

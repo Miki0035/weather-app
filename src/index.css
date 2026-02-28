@@ -67,10 +67,17 @@
   /* background image */
   --bg-large: url("/bg-today-large.svg");
   --bg-small: url("/bg-today-small.svg");
+
+
+}
+
+:root {
+  /* variable */
+  --background-color: hsl(243, 96%, 9%);
 }
 
 html,
 body {
   font-family: var(--font-sans);
-  background-color: hsl(243, 96%, 9%);
+  background-color: var(--background-color);
 }
