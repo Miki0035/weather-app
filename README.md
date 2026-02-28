@@ -40,7 +40,7 @@ Users should be able to:
 ### Links
 
 - Solution URL: [SkySnap](https://your-solution-url.com)
-- Live Site URL: [SkySnap](https://your-live-site-url.com)
+- Live Site URL: [SkySnap](https://Miki0035.github.io/weather-app/)
 
 ## My process
 
