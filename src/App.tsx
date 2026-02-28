@@ -82,7 +82,7 @@ const App = () => {
                     />
                   </div>
                   {/* Lower part */}
-                  <div className="mt-8">
+                  <div>
                     <h5 className="text-left text-xl font-semibold text-white mb-5">
                       Daily forecast
                     </h5>
