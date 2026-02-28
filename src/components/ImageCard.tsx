@@ -51,7 +51,7 @@ const ImageCard = () => {
         <h2 className="text-2xl text-white font-semibold">
           {cityName} , {countryName}
         </h2>
-        <h4 className="text-md text-black-200">{formatedDate() ?? " "}</h4>
+        <h3 className="text-md text-black-200">{formatedDate() ?? " "}</h3>
       </div>
       {/* temperature */}
       <div className="flex items-center gap-5 md:gap-2">
