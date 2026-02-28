@@ -65,8 +65,8 @@
   --font-bri: "BricolageGrotesque", sans-serif;
 
   /* background image */
-  --bg-large: url("bg-today-large.svg");
-  --bg-small: url("bg-today-small.svg");
+  --bg-large: url("/bg-today-large.svg");
+  --bg-small: url("/bg-today-small.svg");
 }
 
 html,

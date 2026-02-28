@@ -109,25 +109,25 @@ export function formatValue(value: number | undefined) {
 
 export function validateWeatherIcon(weatherCode: number) {
   if (weatherCode === 0) {
-    return "/icon-sunny.webp";
+    return "./icon-sunny.webp";
   }
 
   if (weatherCode <= 3) {
-    return "/icon-partly-cloudy.webp"
+    return "./icon-partly-cloudy.webp"
   }
   if (weatherCode <= 48) {
-    return "/icon-fog.webp"
+    return "./icon-fog.webp"
   }
   if (weatherCode <= 57) {
-    return "/icon-drizzle.webp"
+    return "./icon-drizzle.webp"
   }
   if (weatherCode <= 67) {
-    return "/icon-rain.webp"
+    return "./icon-rain.webp"
   }
   if (weatherCode <= 86) {
-    return "/icon-snow.webp"
+    return "./icon-snow.webp"
   }
-  return "/icon-storm.webp"
+  return "./icon-storm.webp"
 }
 
 
